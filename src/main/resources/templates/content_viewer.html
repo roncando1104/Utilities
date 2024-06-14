@@ -1,0 +1,16 @@
+<header th:insert="~{fragments/header.html :: header}"> </header>
+<div style="min-height:100vh; display:flex; flex-direction:column">
+  <div th:id="content-viewer-exit-btn">
+    <form action="#" th:action="@{'/delete'}" th:method="delete" >
+      <button type="submit" class="btn">
+        Exit
+      </button>
+    </form>
+  </div>
+<div th:id="content-viewer">
+  <pre th:text="${content}"></pre>
+</div>
+</div>
+<div th:id="footer-div">
+  <footer th:insert="~{fragments/footer.html :: footer}"></footer>
+</div>

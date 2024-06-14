@@ -1,0 +1,49 @@
+<header th:insert="~{fragments/header.html :: header}"> </header>
+<div style="min-height:100vh; display:flex; flex-direction:column">
+<div class="container" style="max-width: 500px">
+  <h3 class="mb-3">File Selector</h3>
+
+  <form
+      name="file-form"
+      id="uploadForm"
+      method="post"
+      th:action="@{/files/upload}"
+      enctype="multipart/form-data"
+      onsubmit="return validateForm()" required>
+    <div style="display: flex; justify-content: space-between">
+      <div class="custom-file">
+        <label class="custom-file-label" for="customFile">Choose file</label>
+        <input type="file" name="file" class="custom-file-input" id="customFile">
+      </div>
+      <div style="margin-left: 10px">
+        <button class="btn btn-sm btn-outline-success float-right" th:id="upload-file-confirm-btn" type="submit" name="confirm-btn">
+          <!-- this is to upload the file to API folder--> Confirm
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <div th:if="${message != null}"
+      class="alert alert-secondary alert-dismissible fade show text-center message mt-3"
+      role="alert">
+    [[${message}]]
+    <button type="button" class="close btn-sm" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div>
+    <form method="get" th:action="@{'/decode-jwt/' + ${file}}">
+      <button class="btn btn-info" th:id="confirm-btn">Decode JWT Token</button>
+      <button class="btn btn-warning" th:id="cancel-btn" th:formaction="@{/cancel}">Cancel</button>
+    </form>
+  </div>
+
+</div>
+  <!------------------------------- scripts ------------------------------->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script type="text/javascript" th:src="@{/js/getFilename.js}"></script>
+  <script type="text/javascript" th:src="@{/js/validateForm.js}"></script>
+</div>
+<div th:id="footer-div">
+  <footer th:insert="~{fragments/footer.html :: footer}"></footer>
+</div>

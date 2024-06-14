@@ -1,0 +1,101 @@
+html,
+body {
+  margin:0;
+  padding:0;
+  height:100%;
+}
+/*for decode_token and upload_form*/
+#cancel-btn, #confirm-btn {
+  width: 170px;
+  margin-top: 15px;
+}
+
+#upload-file-confirm-btn {
+  display: block;
+  margin: auto;
+  height: 37px;
+}
+
+#password {
+  width: 280px
+}
+
+#form-btn-div {
+  display: flex;
+  justify-content: space-between;
+}
+/*for index page*/
+#util-title {
+  width: 260px;
+  margin: auto;
+  display: block;
+}
+#util-btn {
+  width: 300px;
+  margin: auto;
+  display: block;
+  text-align: center;
+}
+
+/*for files page*/
+#files-msg {
+  margin: 100px auto;
+  display: block;
+  text-align: center;
+}
+
+/*for content viewer page*/
+#content-viewer {
+  margin-left: 50px;
+}
+
+#content-viewer-exit-btn {
+  margin-left: 50px;
+}
+
+/*for json_formatter*/
+#json-formatter-div {
+  margin-left: 70px;
+}
+
+#submit-json {
+  border-right: 10px;
+  padding: 5px;
+  margin-top: 260px;
+  margin-left: -440px;
+  width: 100px;
+  position: absolute;
+}
+
+#json-viewer {
+  margin-left: 0px;
+  padding: 15px;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 700px;
+}
+
+#json-formatter-box-div {
+  margin-top: 80px;
+}
+
+/*for footer*/
+
+#footer-div {
+  margin-top: 50px;
+  bottom: 0;
+  /*clear: both;*/
+  /*position: relative;*/
+  /*height: 200px;*/
+  /*margin-top: -200px;*/
+}
+
+/*for encrypt_password*/
+
+#password-result-field {
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 600px;
+  height: 200px;
+
+}

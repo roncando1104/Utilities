@@ -1,0 +1,44 @@
+<header th:insert="~{fragments/header.html :: header}"></header>
+<div style="min-height:100vh; display:flex; flex-direction:column">
+<div th:id="json-formatter-div">
+  <label for="json-formatter">JSON Formatter:</label>
+</div>
+<div th:id="json-formatter-div">
+  <div>
+    <form method="GET" th:action="@{'/json-formatter/'}" th:id="json-content">
+    <textarea
+        id="json-formatter" placeholder="Paste your JSON here..."
+        name="json" th:form="json-content" rows="10" cols="50" th:text="${json}">
+    </textarea>
+      <button class="btn btn-sm btn-success" type="submit" name="action" th:id="submit-json">Submit</button>
+    </form>
+  </div>
+
+  <div th:id="json-formatter-box-div">
+    <h4>Formatted JSON: </h4>
+    <span th:text="${isValid}" th:id="json-valid" th:name="json-valid"></span>
+    <br/>
+    <span th:text="${errorNote}"></span>
+  </div>
+  <br/>
+  <div th:id="json-viewer">
+    <pre th:text="${content}"></pre>
+  </div>
+
+  <!------------------------------- scripts ------------------------------->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      if ($('#json-valid:contains("JSON is valid")').length) {
+        $('#json-valid').css('color', 'green');
+      } else {
+        $('#json-valid').css('color', 'red');
+      }
+    });
+  </script>
+
+</div>
+</div>
+<div th:id="footer-div">
+  <footer th:insert="~{fragments/footer.html :: footer}"></footer>
+</div>

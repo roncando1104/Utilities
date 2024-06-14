@@ -1,0 +1,12 @@
+<header th:insert="~{fragments/header.html :: header}"> </header>
+<div style="min-height:100vh; display:flex; flex-direction:column">
+<body>
+<div style="margin-left: 30px">
+    <h2>Error!</h2>
+    <pre th:text="${errorMessage}"></pre>
+</div>
+</body>
+</div>
+<div th:id="footer-div">
+    <footer th:insert="~{fragments/footer.html :: footer}"></footer>
+</div>
