@@ -1,0 +1,43 @@
+<header th:insert="~{fragments/header.html :: header}"></header>
+<div style="min-height:100vh; display:flex; flex-direction:column">
+
+  <div th:id="uuid-generator-div">
+    <label>UUID Generator:</label>
+  </div>
+  <div th:id="uuid-generator-div">
+    <div>
+      <form method="GET" th:action="@{'/generate-uuid/random'}" th:id="uuid-value">
+        <button class="btn btn-sm btn-success" type="submit" name="action" th:id="generate-uuid">Generate UUID</button>
+      </form>
+    </div>
+  </div>
+
+  <div th:id="generated-uuid-div">
+    <label for="uuid">Generated UUID:</label>
+  </div>
+  <div th:id="generated-uuid-field-div">
+    <div th:id="uuid-viewer">
+      <textarea id="uuid" th:text="${uuid}"></textarea>
+    </div>
+    <div>
+      <button th:id="copy-btn" onclick="copyUuid()"><i style="font-size:24px;opacity: 50%" class="fa fa-copy"></i></button>
+    </div>
+  </div>
+
+
+  <!------------------------------- scripts ------------------------------->
+
+  <script>
+    function copyUuid() {
+      let copyText = document.getElementById("uuid");
+      copyText.select();
+      //document.execCommand("copy");
+      navigator.clipboard.writeText(copyText.value);
+      //alert("Copied text: " + copyText.value)
+    }
+  </script>
+</div>
+
+<div th:id="footer-div">
+  <footer th:insert="~{fragments/footer.html :: footer}"></footer>
+</div>

@@ -10,10 +10,12 @@ package com.cando.utilities.services.impl;
 
 import com.cando.utilities.services.GenerateUUIDService;
 import java.util.UUID;
+import org.springframework.stereotype.Service;
 
+@Service
 public class GenerateUUIDServiceImpl implements GenerateUUIDService {
 
-  public String generateUUID() {
+  public String generateRandomUUID() {
     UUID uuid = UUID.randomUUID();
     return uuid.toString();
   }

@@ -27,7 +27,7 @@ public class JsonPrettyPrinterResource {
 
 
   @GetMapping(value="/", headers = {"content-type=*/*"}, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ModelAndView getFile(@RequestParam("json") String json) throws JsonProcessingException {
+  public ModelAndView formatJSON(@RequestParam("json") String json) throws JsonProcessingException {
 
     ModelAndView mav = new ModelAndView("/json_formatter");
 
