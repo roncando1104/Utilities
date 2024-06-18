@@ -68,11 +68,11 @@ body {
 }
 
 #json-viewer {
-  margin-left: 0px;
+  margin-left: 0;
   padding: 15px;
   border: 1px solid black;
   border-radius: 5px;
-  width: 700px;
+  width: 800px;
 }
 
 #json-formatter-box-div {
@@ -142,5 +142,8 @@ body {
   border-radius: 5px;
   width: 600px;
   height: 200px;
+}
 
+#copy-password-div {
+  margin-top: 10px;
 }

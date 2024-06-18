@@ -21,18 +21,37 @@
     <span th:text="${errorNote}"></span>
   </div>
   <br/>
-  <div th:id="json-viewer">
-    <pre th:text="${content}"></pre>
+  <div th:id="json-viewer-div">
+    <textarea onchange="expandTextArea()" id="json-viewer" th:text="${content}"></textarea>
+  </div>
+  <div th:id="copy-password-div">
+    <button th:id="copy-json-btn" class="btn btn-success" onclick="copyText()">Copy JSON <i style="font-size:24px;opacity: 50%" class="fa fa-copy"></i></button>
   </div>
 
   <!------------------------------- scripts ------------------------------->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script>
+    function expandTextArea() {
+      const textarea = document.getElementById("json-viewer");
+      textarea.rows = textarea.value.split("\n").length;
+    }
+    setInterval(expandTextArea, 200);
+
+    function copyText() {
+      let copyText = document.getElementById("json-viewer");
+      copyText.select();
+      //document.execCommand("copy");
+      navigator.clipboard.writeText(copyText.value);
+      alert("Copied text: " + copyText.value)
+    }
+
     $(document).ready(function () {
       if ($('#json-valid:contains("JSON is valid")').length) {
         $('#json-valid').css('color', 'green');
+        $('#copy-json-btn').removeAttr('disabled')
       } else {
         $('#json-valid').css('color', 'red');
+        $('#copy-json-btn').attr('disabled', true)
       }
     });
   </script>
