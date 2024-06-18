@@ -9,8 +9,8 @@
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
   <groupId>com.cando</groupId>
-  <artifactId>ING-Utilities</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <artifactId>Utilities</artifactId>
+  <version>1.0.0</version>
   <name>utilities</name>
   <description>utilities</description>
 
