@@ -31,14 +31,14 @@ public class JsonPrettyPrinterResource {
 
     ModelAndView mav = new ModelAndView("/json_formatter");
 
-    if (jsonPrettyPrinterService.isValidJsonObject(json).equalsIgnoreCase("valid") || jsonPrettyPrinterService.isValidJsonArray(json).equalsIgnoreCase("valid")) {
+    if (jsonPrettyPrinterService.isValidJson(json).equalsIgnoreCase("valid")) {
       mav.addObject("isValid", "JSON is valid");
       mav.addObject("json", json);
       return mav.addObject("content", jsonPrettyPrinterService.printJsonObject(json));
     } else {
       mav.addObject("isValid", "JSON is invalid!!!");
       mav.addObject("errorNote", "-- Please check your JSON format --");
-      mav.addObject("content", jsonPrettyPrinterService.isValidJsonObject(json));
+      mav.addObject("content", jsonPrettyPrinterService.isValidJson(json));
       return mav.addObject("json", json);
     }
   }
