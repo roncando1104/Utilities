@@ -99,7 +99,6 @@ body {
 }
 
 #uuid-viewer {
-  margin-left: -25px;
   /*padding: 15px;
   /*border: 1px solid black;*/
   /*border-radius: 5px;*/
@@ -109,7 +108,7 @@ body {
 
 #generated-uuid-field-div {
   width: 800px;
-  margin: 0 auto;
+  margin-left: 70px;
 }
 
 #copy-btn {
@@ -122,17 +121,6 @@ body {
   width: 500px;
   height: 50px;
 
-}
-
-/*for footer*/
-
-#footer-div {
-  margin-top: 50px;
-  bottom: 0;
-  /*clear: both;*/
-  /*position: relative;*/
-  /*height: 200px;*/
-  /*margin-top: -200px;*/
 }
 
 /*for encrypt_password*/
@@ -150,4 +138,15 @@ body {
 
 #confirm-btn, #copy-password-btn {
   width: 170px;
+}
+
+/*for footer*/
+
+#footer-div {
+  margin-top: 50px;
+  bottom: 0;
+  /*clear: both;*/
+  /*position: relative;*/
+  /*height: 200px;*/
+  /*margin-top: -200px;*/
 }
