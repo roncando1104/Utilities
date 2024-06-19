@@ -11,6 +11,7 @@ package com.cando.utilities.services.impl;
 import com.cando.utilities.services.CleanFolder;
 import com.cando.utilities.services.FileStorageService;
 import com.cando.utilities.utils.Util;
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -19,12 +20,14 @@ import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
@@ -33,6 +36,7 @@ public class FileStorageServiceImpl implements FileStorageService {
   private static final Logger LOGGER = LoggerFactory.getLogger(FileStorageServiceImpl.class);
 
   private static final String COULD_NOT_READ_FILE = "Could not read file!";
+  private static final String COULD_NOT_READ_KEYSTORE = "Could not read keystore file!";
 
   private final Path root = Paths.get("./uploads");
 
@@ -42,7 +46,9 @@ public class FileStorageServiceImpl implements FileStorageService {
   @Override
   public void init() {
     try {
+      //deleteFolderIfNotEmpty(root);
       Files.createDirectories(root);
+      LOGGER.info("DIR ENTRIES: {}", root.toAbsolutePath());
     } catch (IOException e) {
       LOGGER.error("Could not initialize folder for upload! Error: {}", e.getMessage());
     }
@@ -82,11 +88,11 @@ public class FileStorageServiceImpl implements FileStorageService {
         }
 
       } else {
-        LOGGER.error(COULD_NOT_READ_FILE);
-        return COULD_NOT_READ_FILE;
+        LOGGER.error(COULD_NOT_READ_KEYSTORE);
+        return COULD_NOT_READ_KEYSTORE;
       }
     } catch (MalformedURLException e) {
-      LOGGER.error("Error: {}", e.getMessage());
+      LOGGER.error("Error loading keystore: {}", e.getMessage());
       return String.format("Malformed URL: %s", e.getMessage());
     }
   }
@@ -104,15 +110,20 @@ public class FileStorageServiceImpl implements FileStorageService {
         return null;
       }
     } catch (MalformedURLException e) {
-      LOGGER.error("Error: {}", e.getMessage());
+      LOGGER.error("Error loading {} file with error {}", filename, e.getMessage());
       return null;
     }
   }
 
   @Override
-  public void deleteAll() throws IOException {
-    //FileSystemUtils.deleteRecursively(root.toFile());
+  public void deleteAll() {
+    FileSystemUtils.deleteRecursively(root.toFile());
     CleanFolder.clean(root);
+  }
+
+  @Override
+  public void deleteFilesInDirectory() throws IOException {
+    FileUtils.cleanDirectory(root.toFile());
   }
 
   @Override
@@ -125,5 +136,17 @@ public class FileStorageServiceImpl implements FileStorageService {
     }
   }
 
+  private void deleteFolderIfNotEmpty(Path path) {
+    var isFolderExist = Files.exists(path);
+    LOGGER.info("Folder Exist?: {}", isFolderExist);
+
+    try (Stream<Path> paths = Files.list(path)) {
+      if (isFolderExist && paths.findAny().isPresent()) {
+        FileUtils.deleteDirectory(new File(path.toString()));
+      }
+    } catch (IOException e) {
+      LOGGER.error("Could not delete folder", e);
+    }
+  }
 }
 

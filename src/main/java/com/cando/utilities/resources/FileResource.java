@@ -76,7 +76,7 @@ public class FileResource {
       } else if (valueEqualsTokenExtension) {
         return "decode_token";
       } else {
-        fileStorageService.deleteAll();
+        fileStorageService.deleteFilesInDirectory();
         errorMessage = String.format("Error Message: %s is not a certificate or JWT file.", file.getOriginalFilename());
         model.addAttribute("errorMessage", errorMessage);
         return "error_page";
@@ -113,13 +113,13 @@ public class FileResource {
 
   @DeleteMapping("/delete")
   public String deleteFile() throws IOException {
-    fileStorageService.deleteAll();
+    fileStorageService.deleteFilesInDirectory();
     return "redirect:/files";
   }
 
   @GetMapping("/cancel")
   public String cancel() throws IOException {
-    fileStorageService.deleteAll();
+    fileStorageService.deleteFilesInDirectory();
     return "index";
   }
 }

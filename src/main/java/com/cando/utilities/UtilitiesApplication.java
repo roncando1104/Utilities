@@ -2,6 +2,7 @@ package com.cando.utilities;
 
 import com.cando.utilities.services.FileStorageService;
 import jakarta.annotation.Resource;
+import java.io.IOException;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,9 +20,10 @@ public class UtilitiesApplication implements CommandLineRunner {
   }
 
   @Override
-  public void run(String... arg) {
-//    storageService.deleteAll();
+  public void run(String... arg) throws IOException {
+    fileStorageService.deleteAll();
     fileStorageService.init();
   }
 
 }
+

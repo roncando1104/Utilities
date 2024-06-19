@@ -147,3 +147,7 @@ body {
 #copy-password-div {
   margin-top: 10px;
 }
+
+#confirm-btn, #copy-password-btn {
+  width: 170px;
+}

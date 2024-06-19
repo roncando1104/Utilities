@@ -4,10 +4,12 @@
     <h3 class="mb-3">File Selector</h3>
 
     <form
+        name="file-form"
         id="uploadForm"
         method="post"
         th:action="@{/files/upload}"
-        enctype="multipart/form-data">
+        enctype="multipart/form-data"
+        onsubmit="return validateForm()" required>
       <div style="display: flex; justify-content: space-between">
         <div class="custom-file">
           <label class="custom-file-label" for="customFile">Choose file</label>
@@ -39,6 +41,7 @@
   <!------------------------------- scripts ------------------------------->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script type="text/javascript" th:src="@{/js/getFilename.js}"></script>
+  <script type="text/javascript" th:src="@{/js/validateForm.js}"></script>
   <script>
     // $(document).ready(function () {
     //   $('#upload-file-confirm-btn').click(function () {

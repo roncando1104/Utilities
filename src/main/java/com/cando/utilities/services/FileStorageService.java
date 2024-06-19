@@ -26,5 +26,7 @@ public interface FileStorageService {
 
   void deleteAll() throws IOException;
 
+  void deleteFilesInDirectory() throws IOException;
+
   Stream<Path> loadAll();
 }

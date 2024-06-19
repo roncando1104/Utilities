@@ -28,7 +28,6 @@ public class DecodeJwtResource {
   @Autowired
   private DecodeJwtServiceImpl decodeJwtService;
 
-
   @GetMapping(value = "/decode-jwt/{jwtToken}", headers = {"content-type=*/*"}, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ModelAndView getJwtContent(@PathVariable("jwtToken") String jwtToken) throws JsonProcessingException {
     ModelAndView mav = new ModelAndView("/content_viewer");
