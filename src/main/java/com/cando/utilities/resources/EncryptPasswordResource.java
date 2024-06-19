@@ -26,6 +26,7 @@ public class EncryptPasswordResource {
   public ModelAndView encryptPassword(@RequestParam("password") String password, @RequestParam("algorithm") String algorithm,
       @RequestParam("hex-value") char[] hex, @RequestParam("withSalt") boolean withSalt, @RequestParam("bytes") byte numOfBytes)
       throws NoSuchAlgorithmException {
+
     var encryptedPassword = encryptPasswordService.encryptPassword(password, algorithm, hex, numOfBytes, withSalt);
     ModelAndView mav = new ModelAndView("/encrypt_password");
     mav.addObject("result", encryptedPassword);

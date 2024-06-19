@@ -31,6 +31,12 @@ public class JsonPrettyPrinterResource {
 
     ModelAndView mav = new ModelAndView("/json_formatter");
 
+    if (json.isEmpty()) {
+      mav.addObject("isValid", "JSON cannot be null");
+      mav.addObject("errorNote", "-- Please check your JSON format --");
+      return mav.addObject("json", null);
+    }
+
     if (jsonPrettyPrinterService.isValidJson(json).equalsIgnoreCase("valid")) {
       mav.addObject("isValid", "JSON is valid");
       mav.addObject("json", json);

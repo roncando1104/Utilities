@@ -10,7 +10,7 @@
         id="json-formatter" placeholder="Paste your JSON here..."
         name="json" th:form="json-content" rows="10" cols="50" th:text="${json}">
     </textarea>
-      <button class="btn btn-sm btn-success" type="submit" name="action" th:id="submit-json">Submit</button>
+      <button class="btn btn-sm btn-success" onclick="isTextAreaEmpty()" type="submit" name="action" th:id="submit-json">Submit</button>
     </form>
   </div>
 
@@ -31,6 +31,12 @@
   <!------------------------------- scripts ------------------------------->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script>
+    function isTextAreaEmpty() {
+      if($("#json-formatter").val().trim().length < 1) {
+        alert("Please Enter Text...");
+      }
+    }
+
     function expandTextArea() {
       const textarea = document.getElementById("json-viewer");
       textarea.rows = textarea.value.split("\n").length;
