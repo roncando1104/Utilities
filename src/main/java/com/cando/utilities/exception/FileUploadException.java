@@ -18,7 +18,7 @@ public class FileUploadException {
 
   @ExceptionHandler(MaxUploadSizeExceededException.class)
   public String handleMaxSizeException(Model model, MaxUploadSizeExceededException e) {
-    model.addAttribute("errorMessage", "File is too large!");
+    model.addAttribute("errorMessage", "File is too large!" + e.getMessage());
 
     return "error_page";
   }

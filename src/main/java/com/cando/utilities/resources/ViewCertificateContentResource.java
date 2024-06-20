@@ -24,7 +24,6 @@ public class ViewCertificateContentResource {
   @Autowired
   private FileStorageServiceImpl fileStorageService;
 
-
   @GetMapping("/view-keystore/{keystore}")
   public ModelAndView getFile(@PathVariable("keystore") String keystore, @RequestParam("password") String password) {
 

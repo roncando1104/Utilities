@@ -33,7 +33,6 @@ public class EncryptPasswordResource {
     return mav;
   }
 
-
   @GetMapping("/encryptor")
   public String encryptorPage() {
     return "encrypt_password";
