@@ -1,0 +1,18 @@
+openapi: 3.0.1
+info:
+  title: Utilities
+  description: Utility tools for developement
+  termsOfService: Terms of Services...
+  contact:
+    name: Ronald Cando
+    url: http://ronald-cando/dummy/url
+    email: ron.cando04@gmail.com
+  license:
+    name: Utilities API 1.0.0
+    url: http://ronald-cando/dummy/url
+  version: 1.0.0
+servers:
+- url: http://localhost:8082/
+  description: LOCAL ENV
+paths: {}
+components: {}

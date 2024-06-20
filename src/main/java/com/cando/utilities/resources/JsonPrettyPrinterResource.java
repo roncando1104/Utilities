@@ -8,6 +8,7 @@
  */
 package com.cando.utilities.resources;
 
+import com.cando.utilities.constants.Constants;
 import com.cando.utilities.services.JsonPrettyPrinterService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,20 +33,20 @@ public class JsonPrettyPrinterResource {
     ModelAndView mav = new ModelAndView("/json_formatter");
 
     if (json.isEmpty()) {
-      mav.addObject("isValid", "JSON cannot be null");
-      mav.addObject("errorNote", "-- Please check your JSON format --");
-      return mav.addObject("json", null);
+      mav.addObject(Constants.IS_VALID, "JSON cannot be null");
+      mav.addObject(Constants.ERROR_NOTE, Constants.CHECK_JSON_FORMAT);
+      return mav.addObject(Constants.JSON, null);
     }
 
     if (jsonPrettyPrinterService.isValidJson(json).equalsIgnoreCase("valid")) {
-      mav.addObject("isValid", "JSON is valid");
-      mav.addObject("json", json);
-      return mav.addObject("content", jsonPrettyPrinterService.printJsonObject(json));
+      mav.addObject(Constants.IS_VALID, "JSON is valid");
+      mav.addObject(Constants.JSON, json);
+      return mav.addObject(Constants.CONTENT, jsonPrettyPrinterService.printJsonObject(json));
     } else {
-      mav.addObject("isValid", "JSON is invalid!!!");
-      mav.addObject("errorNote", "-- Please check your JSON format --");
-      mav.addObject("content", jsonPrettyPrinterService.isValidJson(json));
-      return mav.addObject("json", json);
+      mav.addObject(Constants.IS_VALID, "JSON is invalid!!!");
+      mav.addObject(Constants.ERROR_NOTE, Constants.CHECK_JSON_FORMAT);
+      mav.addObject(Constants.CONTENT, jsonPrettyPrinterService.isValidJson(json));
+      return mav.addObject(Constants.JSON, json);
     }
   }
 

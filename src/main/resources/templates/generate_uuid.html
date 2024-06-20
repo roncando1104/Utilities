@@ -28,10 +28,16 @@
   <!------------------------------- scripts ------------------------------->
   <script>
     function copyUuid() {
-      let copyText = document.getElementById("uuid");
-      copyText.select();
+      const uuidValue = document.getElementById("uuid").value;
+      let uuid = document.getElementById("uuid");
+      if (uuidValue === "") {
+        alert("Nothing was generated yet!");
+        return false;
+      }
+
+      uuid.select();
       //document.execCommand("copy");
-      navigator.clipboard.writeText(copyText.value);
+      navigator.clipboard.writeText(uuid.value);
       //alert("Copied text: " + copyText.value)
     }
   </script>

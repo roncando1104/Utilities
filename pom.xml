@@ -18,8 +18,10 @@
     <java.version>17</java.version>
 
     <commons-codec.version>1.17.0</commons-codec.version>
-    <org.json.version>20240303</org.json.version>
     <commons-io.version>2.16.1</commons-io.version>
+    <org.json.version>20240303</org.json.version>
+    <springdoc.openapi.starter-webmvc-ui.version>2.2.0</springdoc.openapi.starter-webmvc-ui.version>
+    <springboot.buildpack-platform.version>3.1.0</springboot.buildpack-platform.version>
     <webjars.jquery.version>3.6.1</webjars.jquery.version>
     <webjars.bootstrap.version>4.6.2</webjars.bootstrap.version>
   </properties>
@@ -44,8 +46,14 @@
 
     <dependency>
       <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-buildpack-platform</artifactId>
+      <version>${springboot.buildpack-platform.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-devtools</artifactId>
-      <scope>runtime</scope>
+<!--      <scope>runtime</scope>-->
       <optional>true</optional>
     </dependency>
 
@@ -95,6 +103,11 @@
       <version>${commons-io.version}</version>
     </dependency>
 
+    <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+      <version>${springdoc.openapi.starter-webmvc-ui.version}</version>
+    </dependency>
 
   </dependencies>
 

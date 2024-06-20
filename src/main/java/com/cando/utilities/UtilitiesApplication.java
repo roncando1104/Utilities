@@ -1,5 +1,6 @@
 package com.cando.utilities;
 
+import com.cando.utilities.configuration.OpenBrowserConfig;
 import com.cando.utilities.services.FileStorageService;
 import jakarta.annotation.Resource;
 import java.io.IOException;
@@ -14,9 +15,8 @@ public class UtilitiesApplication implements CommandLineRunner {
   private FileStorageService fileStorageService;
 
   public static void main(String[] args) {
-
     SpringApplication.run(UtilitiesApplication.class, args);
-
+    OpenBrowserConfig.openPage();
   }
 
   @Override
