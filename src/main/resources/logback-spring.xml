@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+  <property name="LOGS" value="./logs"/>
+  <property name="CONSOLE-PATTERN" value="%black(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%C{11}.%M:%L): %msg%n%throwable"/>
+  <property name="ROLLING-FILE-PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
+  <!-- ROLLING-FILE PATTERN: "%d %p %C{11}.%M:%L [%t] %m%n"-->
+  <property name="ROLLING-POLICY-FILENAME-PATTERN" value="archived/utilities-%d{yyyy-MM-dd}.%i.log"/>
+  <property name="ROLLING-FILENAME-PATTERN" value="utilities.log"/>
+  <property name="MAX-FILE-SIZE" value="10MB"/>
+
+  <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+    <layout class="ch.qos.logback.classic.PatternLayout">
+      <Pattern>${CONSOLE-PATTERN}</Pattern>
+    </layout>
+  </appender>
+
+  <appender name="RollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${LOGS}/${ROLLING-FILENAME-PATTERN}</file>
+    <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+      <Pattern>${ROLLING-FILE-PATTERN}</Pattern>
+    </encoder>
+
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <!-- rollover daily and when the file reaches 10 MegaBytes -->
+      <fileNamePattern>${LOGS}/${ROLLING-POLICY-FILENAME-PATTERN}</fileNamePattern>
+      <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+        <maxFileSize>${MAX-FILE-SIZE}</maxFileSize>
+      </timeBasedFileNamingAndTriggeringPolicy>
+    </rollingPolicy>
+  </appender>
+
+  <!-- LOG everything at INFO level -->
+  <root level="info">
+    <appender-ref ref="RollingFile"/>
+    <appender-ref ref="Console"/>
+  </root>
+
+  <!-- LOG everything at ERROR level -->
+  <root level="error">
+    <appender-ref ref="RollingFile"/>
+    <appender-ref ref="Console"/>
+  </root>
+
+  <!-- LOG everything at DEBUG level -->
+  <!--  <root level="debug">-->
+  <!--    <appender-ref ref="RollingFile" />-->
+  <!--    <appender-ref ref="Console" />-->
+  <!--  </root>-->
+
+  <logger name="org.springframework.boot.SpringApplication" level="info" additivity="false">
+    <appender-ref ref="RollingFile"/>
+    <appender-ref ref="Console"/>
+  </logger>
+
+  <!-- LOG "org.springframework.boot*" at TRACE level -->
+  <logger name="org.springframework.boot" level="info" additivity="false">
+    <appender-ref ref="RollingFile"/>
+    <appender-ref ref="Console"/>
+  </logger>
+
+  <!-- LOG "com.cando.utilities*" at TRACE level -->
+  <logger name="com.cando.utilities" level="info" additivity="false">
+    <appender-ref ref="RollingFile"/>
+    <appender-ref ref="Console"/>
+  </logger>
+
+</configuration>

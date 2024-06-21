@@ -1,6 +1,8 @@
 spring:
   application:
     name: Utilities
+  main:
+    banner-mode: log
   devtools:
     restart:
       enabled: true
