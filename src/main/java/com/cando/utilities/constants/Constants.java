@@ -12,7 +12,11 @@ public class Constants {
 
   public static final String IS_VALID = "isValid";
   public static final String ERROR_NOTE = "errorNote";
+
   public static final String CONTENT = "content";
   public static final String JSON = "json";
   public static final String CHECK_JSON_FORMAT =  "-- Please check your JSON format --";
+
+  public static final String JWT_STRING = "jwtString";
+  public static final String CHECK_JWT_VALID =  "-- Please use a valid token --";
 }

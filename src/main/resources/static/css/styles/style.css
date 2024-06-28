@@ -53,6 +53,44 @@ body {
   margin-left: 50px;
 }
 
+/*for jwt_content_viewer*/
+#jwt_content_viewer_div {
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+#jwt-token, #jwt-header, #jwt-payload, #jwt-signature {
+  margin-left: 0;
+  padding: 15px;
+  border-style: ridge;
+  border-width: 5px;
+  border-color: lightgray;
+  border-radius: 8px;
+  width: 100%;
+}
+
+#jwt-token-label, #jwt-header-label, #jwt-payload-label, #jwt-signature-label {
+  margin-top: 10px;
+}
+
+/*for jwt_string_content_viewer*/
+#submit-jwt-decode-request {
+  border-right: 10px;
+  padding: 5px;
+  margin-top: -40px;
+  margin-left: -160px;
+  width: 150px;
+  position: absolute;
+}
+
+#decoded-jwt-div {
+  margin-top: 10px;
+}
+
+#jwt-decode-msg-div {
+  margin-top: 20px;
+}
+
 /*for json_formatter*/
 #json-formatter-div {
   margin-left: 70px;

@@ -14,8 +14,13 @@
           </form>
         </div>
         <div class="utility-index-div">
-          <form method="get" th:action="@{/get-token}">
-            <button type="submit" class="btn btn-secondary" th:id="util-btn">Decode JWT Token</button>
+          <form method="get" th:action="@{/get-jwt-file}">
+            <button type="submit" class="btn btn-secondary" th:id="util-btn">Decode JWT File</button>
+          </form>
+        </div>
+        <div class="utility-index-div">
+          <form method="get" th:action="@{/get-jwt-string}">
+            <button type="submit" class="btn btn-secondary" th:id="util-btn">Decode JWT String</button>
           </form>
         </div>
         <div class="utility-index-div">

@@ -1,0 +1,80 @@
+<header th:insert="~{fragments/header.html :: header}"> </header>
+<div style="min-height:100vh; display:flex; flex-direction:column">
+  <div th:id="content-viewer-exit-btn">
+    <form action="#" th:action="@{'/delete'}" th:method="delete" >
+      <button type="submit" class="btn">
+        Exit
+      </button>
+    </form>
+  </div>
+  <div th:id="jwt_content_viewer_div">
+    <div th:id="header_content-viewer">
+      <h5 id="jwt-token-label">Encoded Token</h5>
+      <textarea id="jwt-token" th:text="${token}"></textarea>
+    </div>
+    <div th:id="jwt-decode-msg-div">
+      <h4>Decoded JWT: </h4>
+      <span th:text="${isValid}" th:id="jwt-valid" th:name="jwt-valid"></span>
+      <br/>
+      <span th:text="${errorNote}"></span>
+    </div>
+    <div th:id="header_content-viewer">
+      <h5 id="jwt-header-label">Header</h5>
+      <textarea onchange="expandTextArea()" id="jwt-header" th:text="${header}"></textarea>
+    </div>
+    <div th:id="payload_content-viewer">
+      <h5 id="jwt-payload-label">Payload</h5>
+      <textarea onchange="expandTextArea()" id="jwt-payload" th:text="${payload}"></textarea>
+    </div>
+    <div th:id="signature_content-viewer">
+      <h5 id="jwt-signature-label">Signature</h5>
+      <textarea onchange="expandTextArea()" id="jwt-signature" th:text="${signature}"></textarea>
+    </div>
+
+    <!------------------------------- scripts ------------------------------->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#jwt-token').on('change keyup keydown paste cut input click ready load drop resize scroll unload', function () {
+          this.style.height = 'auto';
+          this.style.height = (this.scrollHeight) + 'px';
+        });
+
+        $('#jwt-signature').on('change keyup keydown paste cut input click ready load drop resize scroll unload', function () {
+          this.style.height = 'auto';
+          this.style.height = (this.scrollHeight) + 'px';
+        });
+      });
+
+    </script>
+    <script>
+
+      function expandTextArea() {
+        // const jwtTextarea = document.getElementById("jwt-token");
+        // jwtTextarea.rows = jwtTextarea.value.split("\n").length;
+
+        const jwtHeaderTextarea = document.getElementById("jwt-header");
+        jwtHeaderTextarea.rows = jwtHeaderTextarea.value.split("\n").length;
+
+        const jwtPayloadTextarea = document.getElementById("jwt-payload");
+        jwtPayloadTextarea.rows = jwtPayloadTextarea.value.split("\n").length;
+
+        // const jwtSignatureTextarea = document.getElementById("jwt-signature");
+        // jwtSignatureTextarea.rows = jwtSignatureTextarea.value.split("\n").length;
+      }
+      setInterval(expandTextArea, 200);
+
+      $(document).ready(function () {
+        if ($('#jwt-valid:contains("JWT is valid")').length || $('#jwt-valid:contains("JOSE is valid")').length) {
+          $('#jwt-valid').css('color', 'green');
+        } else {
+          $('#jwt-valid').css('color', 'red');
+        }
+      });
+    </script>
+
+  </div>
+</div>
+<div th:id="footer-div">
+  <footer th:insert="~{fragments/footer.html :: footer}"></footer>
+</div>

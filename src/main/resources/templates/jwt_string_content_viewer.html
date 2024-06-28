@@ -1,0 +1,108 @@
+<header th:insert="~{fragments/header.html :: header}"> </header>
+<div style="min-height:100vh; display:flex; flex-direction:column">
+  <div th:id="content-viewer-exit-btn">
+    <form action="#" th:action="@{'/home/'}" th:method="get" >
+      <button type="submit" class="btn">
+        Exit
+      </button>
+    </form>
+  </div>
+  <div th:id="jwt_content_viewer_div">
+    <div>
+      <h5 id="jwt-token-label">Encoded Token</h5>
+      <form name="jwt-decoder" method="GET" th:action="@{'/decode-jwt-string/'}" th:id="jwt-string" onsubmit="return validateForm()">
+    <textarea
+        id="jwt-token" placeholder="Paste your token here..."
+        name="jwtString" th:form="jwt-string" rows="10" cols="50" th:text="${jwtString}">
+    </textarea>
+        <button class="btn btn-sm btn-success" type="submit" name="action" th:id="submit-jwt-decode-request">Decode JWT</button>
+        <div>
+          <label for="jwt-type" style="margin-bottom: 3px">Choose Token Type:</label>
+          <select class="form-control form-control-sm" name="tokenType" id="jwt-type">
+            <option value="" disabled selected>Select Token Type</option>
+            <option value="JOSE">JOSE</option>
+            <option value="JWT">JWT</option>
+          </select>
+        </div>
+      </form>
+    </div>
+
+    <div th:id="jwt-decode-msg-div">
+      <h4>Decoded JWT: </h4>
+      <span th:text="${isValid}" th:id="jwt-valid" th:name="jwt-valid"></span>
+      <br/>
+      <span th:text="${errorNote}"></span>
+    </div>
+
+    <div th:id="decoded-jwt-div">
+      <div th:id="header_content-viewer">
+        <h5 id="jwt-header-label">Header</h5>
+        <textarea onchange="expandTextArea()" id="jwt-header" th:text="${header}"></textarea>
+      </div>
+      <div th:id="payload_content-viewer">
+        <h5 id="jwt-payload-label">Payload</h5>
+        <textarea onchange="expandTextArea()" id="jwt-payload" th:text="${payload}"></textarea>
+      </div>
+      <div th:id="signature_content-viewer">
+        <h5 id="jwt-signature-label">Signature</h5>
+        <textarea onchange="expandTextArea()" id="jwt-signature" th:text="${signature}"></textarea>
+      </div>
+    </div>
+
+    <!------------------------------- scripts ------------------------------->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#jwt-token').on('change keyup keydown paste cut input click ready load drop resize scroll unload', function () {
+          this.style.height = 'auto';
+          this.style.height = (this.scrollHeight) + 'px';
+        });
+
+        $('#jwt-signature').on('change keyup keydown paste cut input click ready load drop resize scroll unload', function () {
+          this.style.height = 'auto';
+          this.style.height = (this.scrollHeight) + 'px';
+        });
+      });
+
+      $(document).ready(function () {
+        if ($('#jwt-valid:contains("JWT is valid")').length || $('#jwt-valid:contains("JOSE is valid")').length) {
+          $('#jwt-valid').css('color', 'green');
+        } else {
+          $('#jwt-valid').css('color', 'red');
+        }
+      });
+
+    </script>
+    <script>
+      function validateForm() {
+        const tokenType = document.forms["jwt-decoder"]["tokenType"].value;
+
+        if($("#jwt-token").val().trim().length < 1) {
+          alert("Please Enter Text...");
+          return false;
+        }
+
+        if (tokenType === "") {
+          alert("You must select a token type.");
+          return false;
+        }
+        return true;
+      }
+
+      function expandTextArea() {
+
+        const jwtHeaderTextarea = document.getElementById("jwt-header");
+        jwtHeaderTextarea.rows = jwtHeaderTextarea.value.split("\n").length;
+
+        const jwtPayloadTextarea = document.getElementById("jwt-payload");
+        jwtPayloadTextarea.rows = jwtPayloadTextarea.value.split("\n").length;
+
+      }
+      setInterval(expandTextArea, 200);
+    </script>
+
+  </div>
+</div>
+<div th:id="footer-div">
+  <footer th:insert="~{fragments/footer.html :: footer}"></footer>
+</div>

@@ -30,6 +30,7 @@ springdoc:
 
 server:
   port: 8082
+  max-http-request-header-size: 10MB
 
 service:
   certificate:

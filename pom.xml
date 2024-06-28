@@ -19,7 +19,12 @@
 
     <commons-codec.version>1.17.0</commons-codec.version>
     <commons-io.version>2.16.1</commons-io.version>
+    <jjwt.api.version>0.11.5</jjwt.api.version>
+    <jjwt.impl.version>0.11.5</jjwt.impl.version>
+    <jjwt.jackson.version>0.11.5</jjwt.jackson.version>
     <org.json.version>20240303</org.json.version>
+    <oauth.jwt.version>4.2.1</oauth.jwt.version>
+    <oauth.jose.version>5.3.3.RELEASE</oauth.jose.version>
     <springdoc.openapi.starter-webmvc-ui.version>2.2.0</springdoc.openapi.starter-webmvc-ui.version>
     <springboot.buildpack-platform.version>3.1.0</springboot.buildpack-platform.version>
     <webjars.jquery.version>3.6.1</webjars.jquery.version>
@@ -66,6 +71,36 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-thymeleaf</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt-api</artifactId>
+      <version>${jjwt.api.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt-impl</artifactId>
+      <version>${jjwt.impl.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt-jackson</artifactId>
+      <version>${jjwt.jackson.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.auth0</groupId>
+      <artifactId>java-jwt</artifactId>
+      <version>${oauth.jwt.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-oauth2-jose</artifactId>
+      <version>${oauth.jose.version}</version>
     </dependency>
 
     <dependency>
