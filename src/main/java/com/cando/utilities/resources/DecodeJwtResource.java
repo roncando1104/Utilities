@@ -9,7 +9,7 @@
 package com.cando.utilities.resources;
 
 import com.cando.utilities.constants.Constants;
-import com.cando.utilities.model.CertJsonBean;
+import com.cando.utilities.model.JwtPayload;
 import com.cando.utilities.services.DecodeJwtService;
 import com.cando.utilities.utils.JWTUtil;
 import com.cando.utilities.utils.Util;
@@ -68,9 +68,10 @@ public class DecodeJwtResource {
   private void validateAndGetJWTValue(String jwtToken, ModelAndView mav, String jwtStr, String tokenType) throws JsonProcessingException {
 
     if (tokenType.equalsIgnoreCase("JOSE")) {
-      CertJsonBean tokenList = decodeJwtService.decodeJwt(jwtToken);
+      JwtPayload tokenList = decodeJwtService.decodeJwt(jwtToken);
 
       if (tokenList.getHeaderStr() == null || tokenList.getPayloadStr() == null || tokenList.getSignature() == null) {
+        mav.addObject(jwtStr, jwtToken);
         mav.addObject(Constants.IS_VALID, String.format("%s is invalid", tokenType.toUpperCase()));
         mav.addObject(Constants.ERROR_NOTE, Constants.CHECK_JWT_VALID);
         mav.addObject(Constants.JWT_STRING, jwtToken);
@@ -82,15 +83,17 @@ public class DecodeJwtResource {
       }
     } else {
       if (jwtToken.isEmpty()) {
+        mav.addObject(jwtStr, jwtToken);
         mav.addObject(Constants.IS_VALID, String.format("%s cannot be null", tokenType.toUpperCase()));
         mav.addObject(Constants.ERROR_NOTE, Constants.CHECK_JWT_VALID);
         mav.addObject(Constants.JWT_STRING, jwtToken);
       } else if (!JWTUtil.isJWTValid(jwtToken)) {
+        mav.addObject(jwtStr, jwtToken);
         mav.addObject(Constants.IS_VALID, String.format("%s is invalid", tokenType.toUpperCase()));
         mav.addObject(Constants.ERROR_NOTE, Constants.CHECK_JWT_VALID);
         mav.addObject(Constants.JWT_STRING, jwtToken);
       } else {
-        CertJsonBean tokenList = decodeJwtService.decodeJwt(jwtToken);
+        JwtPayload tokenList = decodeJwtService.decodeJwt(jwtToken);
 
         mav.addObject(jwtStr, jwtToken);
         mav.addObject("header", tokenList.getHeaderStr());

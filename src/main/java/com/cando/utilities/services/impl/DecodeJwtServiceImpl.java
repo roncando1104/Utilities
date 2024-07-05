@@ -8,8 +8,9 @@
  */
 package com.cando.utilities.services.impl;
 
-import com.cando.utilities.model.CertJsonBean;
+import com.cando.utilities.model.JwtPayload;
 import com.cando.utilities.services.DecodeJwtService;
+import com.cando.utilities.services.JsonPrettyPrinterService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -22,16 +23,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class DecodeJwtServiceImpl implements DecodeJwtService {
 
-  @Autowired
-  private JsonPrettyPrinterServiceImpl jsonPrettyPrinterService;
+
+  private JsonPrettyPrinterService jsonPrettyPrinterService;
 
   private static final Logger LOGGER = LoggerFactory.getLogger(DecodeJwtServiceImpl.class);
   private StringWriter sw = new StringWriter();
   private PrintWriter pw = new PrintWriter(sw);
 
-  public CertJsonBean decodeJwt(String jwtToken) {
+  @Autowired
+  public DecodeJwtServiceImpl(JsonPrettyPrinterService jsonPrettyPrinterService) {
+    this.jsonPrettyPrinterService = jsonPrettyPrinterService;
+  }
 
-    CertJsonBean certJsonBean = new CertJsonBean();
+  public JwtPayload decodeJwt(String jwtToken) {
+
+    JwtPayload jwtPayload = new JwtPayload();
 
     try {
       String[] splitString = jwtToken.split("\\.");
@@ -47,18 +53,18 @@ public class DecodeJwtServiceImpl implements DecodeJwtService {
 
       String signature = new String(getDecodeJwt(base64EncodedSignature));
 
-      certJsonBean.setHeaderStr(jwtHeader);
-      certJsonBean.setPayloadStr(jwtBody);
-      certJsonBean.setSignature(signature);
+      jwtPayload.setHeaderStr(jwtHeader);
+      jwtPayload.setPayloadStr(jwtBody);
+      jwtPayload.setSignature(signature);
     } catch (JsonProcessingException | IndexOutOfBoundsException e) {
       e.printStackTrace(pw);
       LOGGER.info("Invalid Token: {}", e.getMessage());
       LOGGER.error(sw.getBuffer().toString());
 
-      return new CertJsonBean();
+      return null;
     }
 
-    return certJsonBean;
+    return jwtPayload;
   }
 
   private byte[] getDecodeJwt(String base64EncodedString) {

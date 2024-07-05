@@ -12,66 +12,39 @@ import java.util.Map;
 
 public class CertJsonBean {
 
-  public String privatekey;
-  public String headerStr;
-  public String payloadStr;
-  public Map<String, Object> payload;
-  public Map<String, Object> header;
-  public String signature;
+  public String privateKey;
+  public Map<String, Object> jwtPayload;
+  public Map<String, Object> jwtHeader;
 
-  public String getPrivatekey() {
-    return privatekey;
+  public String getPrivateKey() {
+    return privateKey;
   }
 
-  public void setPrivatekey(String privatekey) {
-    this.privatekey = privatekey;
+  public void setPrivateKey(String privateKey) {
+    this.privateKey = privateKey;
   }
 
-  public String getHeaderStr() {
-    return headerStr;
+  public Map<String, Object> getJwtPayload() {
+    return jwtPayload;
+  }
+  public void setJwtPayload(Map<String, Object> jwtPayload) {
+    this.jwtPayload = jwtPayload;
   }
 
-  public void setHeaderStr(String headerStr) {
-    this.headerStr = headerStr;
+  public Map<String, Object> getJwtHeader() {
+    return jwtHeader;
   }
 
-  public String getPayloadStr() {
-    return payloadStr;
-  }
-
-  public void setPayloadStr(String payloadStr) {
-    this.payloadStr = payloadStr;
-  }
-
-  public Map<String, Object> getPayload() {
-    return payload;
-  }
-  public void setPayload(Map<String, Object> payload) {
-    this.payload = payload;
-  }
-
-  public Map<String, Object> getHeader() {
-    return header;
-  }
-
-  public void setHeader(Map<String, Object> header) {
-    this.header = header;
-  }
-
-  public String getSignature() {
-    return signature;
-  }
-
-  public void setSignature(String signature) {
-    this.signature = signature;
+  public void setJwtHeader(Map<String, Object> jwtHeader) {
+    this.jwtHeader = jwtHeader;
   }
 
   @Override
   public String toString() {
     return "CertJsonBean{" +
-        "privatekey='" + privatekey + '\'' +
-        ", payload=" + payload +
-        ", header=" + header +
+        "privatekey='" + privateKey + '\'' +
+        ", payload=" + jwtPayload +
+        ", header=" + jwtHeader +
         '}';
   }
 }

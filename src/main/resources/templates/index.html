@@ -24,6 +24,16 @@
           </form>
         </div>
         <div class="utility-index-div">
+          <form method="get" th:action="@{/create-encoded-jwt}">
+            <button type="submit" class="btn btn-secondary" th:id="util-btn">Create Encoded JWT</button>
+          </form>
+        </div>
+        <div class="utility-index-div">
+          <form method="get" th:action="@{/generate-key-home}">
+            <button type="submit" class="btn btn-secondary" th:id="util-btn">Generate Private/Public RSA Key</button>
+          </form>
+        </div>
+        <div class="utility-index-div">
           <form method="get" th:action="@{/encryptor}">
             <button type="submit" class="btn btn-secondary" th:id="util-btn">Encrypt Password</button>
           </form>

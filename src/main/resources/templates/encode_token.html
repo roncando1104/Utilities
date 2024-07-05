@@ -1,0 +1,132 @@
+<header th:insert="~{fragments/header.html :: header}"> </header>
+<div style="min-height:100vh; display:flex; flex-direction:column">
+
+    <div th:id="content-viewer">
+      <div>
+        <h3 id="jwt-encoder-main-label">JWT Encoder:</h3>
+        <div th:id="jwt-encode-save-div">
+          <h5 id="jwt-encoded-label">Encoded JWT</h5>
+          <div th:id="jwt-encode-save-copy-div">
+            <button th:id="copy-token-btn" class="btn btn-info" onclick="copyText()">Copy JWT Token <i style="font-size:24px;opacity: 50%" class="fa fa-copy"></i></button>
+            <button class="btn btn-success" th:id="save-encoded-jwt-btn" onclick="saveToFile()">Save as File <i style="font-size:24px;opacity: 50%" class="fa fa-save"></i></button>
+          </div>
+        </div>
+        <form name="jwt-encoder-form" th:id="jwt-encoder" method="get" th:action="@{'/get-encoded-jwt'}" onsubmit="return validateForm()">
+          <div th:id="jwt-encoder-div">
+            <textarea onchange="expandTextArea()"
+                id="jwt-encoded" placeholder="The encoded JWT will appear here..."
+                name="encodedJwt" th:form="jwt-encoder" rows="10" cols="50" th:text="${encodedJwt}">
+            </textarea>
+          </div>
+          <div>
+            <label for="jwt-type" style="margin-bottom: 3px">Choose Token Type:</label>
+            <select class="form-control form-control-sm" name="tokenType" id="jwt-type">
+              <option value="" disabled selected>Select File Type:</option>
+              <option value="JOSE">JOSE</option>
+              <option value="JWT">JWT</option>
+              <option value="TXT">TXT</option>
+            </select>
+          </div>
+          <div th:id="jwt-encoder-div">
+            <h5 id="jwt-encoder-header-label">JWT Header</h5>
+            <textarea onchange="expandTextArea()"
+                id="jwt-header" placeholder="Paste here the JWT header..."
+                name="jwtHeader" th:form="jwt-encoder" rows="10" cols="50" th:text="${jwtHeader}">
+            </textarea>
+          </div>
+          <div th:id="jwt-encoder-div">
+            <h5 id="jwt-encoder-payload-label">JWT Payload</h5>
+            <textarea onchange="expandTextArea()"
+                id="jwt-payload" placeholder="Paste here the JWT payload..."
+                name="jwtPayload" th:form="jwt-encoder" rows="10" cols="50" th:text="${jwtPayload}">
+            </textarea>
+          </div>
+          <div th:id="jwt-encoder-div">
+            <h5 id="jwt-encoder-signature-label">Private Key</h5>
+            <textarea onchange="expandTextArea()"
+                id="jwt-signature" placeholder="Paste here the JWT signature..."
+                name="privateKey" th:form="jwt-encoder" rows="10" cols="50" th:text="${privateKey}">
+            </textarea>
+          </div>
+          <div>
+            <button class="btn btn-info" th:id="encode-jwt-btn">Generate Encoded JWT</button>
+          </div>
+        </form>
+      </div>
+      <!------------------------------- scripts ------------------------------->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+      <script src="https://cdn.rawgit.com/eligrey/FileSaver.js/5ed507ef8aa53d8ecfea96d96bc7214cd2476fd2/FileSaver.min.js"></script>
+      <script>
+        async function saveToFile() {
+          let textAreaValue = document.getElementById("jwt-encoded").value;
+          let jwtType = document.getElementById("jwt-type").value;
+
+          // if ('showOpenFilePicker' in window) {
+          //   alert("it is")
+          // }
+
+          const blob = new Blob([textAreaValue], {
+            type: "text/plain;charset=utf-8",
+          });
+          const fileName = prompt("Enter filename:");
+          saveAs(blob, fileName + "." + jwtType.toLowerCase());
+          alert("The file " + fileName + "." + jwtType.toLowerCase() + " will be saved.")
+        }
+
+        function copyText() {
+          let encodedJwt = document.getElementById("jwt-encoded");
+          const generatedEncodedJwtValue = document.getElementById("jwt-encoded").value;
+          if (generatedEncodedJwtValue === "") {
+            alert("Please enter all required fields");
+            return false;
+          }
+          encodedJwt.select();
+          //document.execCommand("copy");
+          navigator.clipboard.writeText(encodedJwt.value);
+          //alert("Copied text: " + copyText.value)
+        }
+
+        function expandTextArea() {
+
+          const encodedJwtTextarea = document.getElementById("jwt-encoded");
+          encodedJwtTextarea.rows = encodedJwtTextarea.value.split("\n").length;
+
+          const jwtHeaderTextarea = document.getElementById("jwt-header");
+          jwtHeaderTextarea.rows = jwtHeaderTextarea.value.split("\n").length;
+
+          const jwtPayloadTextarea = document.getElementById("jwt-payload");
+          jwtPayloadTextarea.rows = jwtPayloadTextarea.value.split("\n").length;
+
+          const jwtPrivateKeyTextarea = document.getElementById("jwt-signature");
+          jwtPrivateKeyTextarea.rows = jwtPrivateKeyTextarea.value.split("\n").length;
+
+        }
+
+        $(document).ready(function () {
+          $('#jwt-signature').on('change keyup keydown paste cut input click ready load drop resize scroll unload', function () {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+          });
+
+          $('#jwt-header').on('change keyup keydown paste cut input click ready load drop resize scroll unload', function () {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+          });
+
+          $('#jwt-payload').on('change keyup keydown paste cut input click ready load drop resize scroll unload', function () {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+          });
+
+          $('#jwt-encoded').on('change keyup keydown paste cut input click ready load drop resize scroll unload', function () {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+          });
+        });
+      </script>
+    </div>
+</div>
+
+<div th:id="footer-div">
+  <footer th:insert="~{fragments/footer.html :: footer}"></footer>
+</div>

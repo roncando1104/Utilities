@@ -13,10 +13,12 @@ import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,11 +27,24 @@ public class JsonPrettyPrinterServiceImpl implements JsonPrettyPrinterService {
   private static final Logger LOGGER = LoggerFactory.getLogger(JsonPrettyPrinterServiceImpl.class);
   private StringWriter sw = new StringWriter();
   private PrintWriter pw = new PrintWriter(sw);
+
   private ObjectMapper objectMapper;
+
+  @Autowired
+  public JsonPrettyPrinterServiceImpl(ObjectMapper objectMapper) {
+    this.objectMapper = objectMapper;
+  }
 
   public String printJsonObject(String json) throws JsonProcessingException {
     objectMapper = new ObjectMapper();
-    return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(objectMapper.readTree(json));
+    try {
+      return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(objectMapper.readTree(json));
+    } catch (IOException e) {
+      LOGGER.info("Invalid JSON: {}", e.getMessage());
+      LOGGER.error(sw.getBuffer().toString());
+
+      return sw.getBuffer().toString();
+    }
   }
 
   public String isValidJson(String json) {
@@ -37,7 +52,7 @@ public class JsonPrettyPrinterServiceImpl implements JsonPrettyPrinterService {
         .enable(DeserializationFeature.FAIL_ON_TRAILING_TOKENS);
     try {
       objectMapper.readTree(json);
-    } catch (JacksonException e) {
+    } catch (IOException e) {
       e.printStackTrace(pw);
       LOGGER.info("Invalid JSON: {}", e.getMessage());
       LOGGER.error(sw.getBuffer().toString());

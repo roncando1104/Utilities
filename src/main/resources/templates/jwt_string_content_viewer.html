@@ -1,6 +1,6 @@
 <header th:insert="~{fragments/header.html :: header}"> </header>
 <div style="min-height:100vh; display:flex; flex-direction:column">
-  <div th:id="content-viewer-exit-btn">
+  <div th:id="content-viewer">
     <form action="#" th:action="@{'/home/'}" th:method="get" >
       <button type="submit" class="btn">
         Exit
@@ -54,6 +54,11 @@
     <script type="text/javascript">
       $(document).ready(function () {
         $('#jwt-token').on('change keyup keydown paste cut input click ready load drop resize scroll unload', function () {
+          this.style.height = 'auto';
+          this.style.height = (this.scrollHeight) + 'px';
+        });
+
+        $('#jwt-header').on('change keyup keydown paste cut input click ready load drop resize scroll unload', function () {
           this.style.height = 'auto';
           this.style.height = (this.scrollHeight) + 'px';
         });

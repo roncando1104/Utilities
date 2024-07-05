@@ -1,0 +1,115 @@
+<header th:insert="~{fragments/header.html :: header}"> </header>
+<div style="min-height:100vh; display:flex; flex-direction:column">
+
+  <div th:id="content-viewer">
+    <div>
+      <h3 id="jwt-encoder-main-label">Private & Public Key Generator:</h3>
+    </div>
+    <form name="generate-key" method="GET" th:action="@{'/generate-public-private-key'}" th:id="jwt-string" onsubmit="return validateFields()">
+      <div th:id="generate-rsa-key-div">
+          <button type="button" th:id="gen-key-exit-btn" class="btn btn-info" onclick="gotoHomePage()">Exit</button>
+          <button class="btn btn-success" th:id="gen-key-btn" onclick="saveToFile()">Generate Keys</button>
+      </div>
+      <div th:id="generate-key-div">
+        <label for="algorithm-type" style="margin-bottom: 3px">Choose Algorithm Type:</label>
+        <select class="form-control form-control-sm" name="algorithmType" id="algorithm-type">
+          <option value="" disabled selected>Select Algorithm Type</option>
+          <option value="RSA">RSA</option>
+          <option value="DSA">DSA</option>
+          <option value="DiffieHellman">DiffieHellman</option>
+        </select>
+      </div>
+      <div th:id="generate-key-div">
+        <label for="key-size" style="margin-bottom: 3px">Choose Key Size:</label>
+        <select class="form-control form-control-sm" name="keySize" id="key-size">
+          <option value="" disabled selected>Select Token Type</option>
+          <option value="512">512</option>
+          <option value="768">768</option>
+          <option value="1024">1024</option>
+          <option value="2048">2048</option>
+          <option value="4096">4096</option>
+        </select>
+      </div>
+    </form>
+    <div th:id="generate-key-div">
+      <div th:id="private-key-div">
+        <h5 id="private-key-label">Private Key</h5>
+        <button th:id="copy-token-btn" class="btn btn-info" onclick="copyPrivateKey()">Copy Private Key <i style="font-size:24px;opacity: 50%" class="fa fa-copy"></i></button>
+      </div>
+      <textarea
+          id="private-key" placeholder="Private key will appear here"
+          name="privateKey" rows="10" cols="50" th:text="${privateKey}">
+    </textarea>
+    </div>
+    <div th:id="generate-key-div">
+      <div th:id="public-key-div">
+        <h5 id="public-key-label">Public Key</h5>
+        <button th:id="copy-token-btn" class="btn btn-info" onclick="copyPublicKey()">Copy Public Key <i style="font-size:24px;opacity: 50%" class="fa fa-copy"></i></button>
+      </div>
+      <textarea
+          id="public-key" placeholder="Public key will appear here"
+          name="privateKey" rows="10" cols="50" th:text="${publicKey}">
+    </textarea>
+    </div>
+  </div>
+<!-------------------------- Script -------------------------------------->
+  <script>
+    function gotoHomePage() {
+      window.location = '/home/';
+    }
+
+    function validateFields() {
+      const algorithmType = document.forms["generate-key"]["algorithm-type"].value;
+      const keySize = document.forms["generate-key"]["key-size"].value;
+
+      if (algorithmType === "") {
+        alert("You must select an algorithm type.");
+        return false;
+      }
+      if (keySize === "") {
+        alert("You must select a key size.");
+        return false;
+      }
+      return true;
+    }
+
+    function copyPrivateKey() {
+      let privateKey = document.getElementById("private-key");
+      const privateKeyValue = document.getElementById("private-key").value;
+
+      privateAndPublicKey_Copy(privateKey, privateKeyValue)
+    }
+
+    function copyPublicKey() {
+      let publicKey = document.getElementById("public-key");
+      const publicKeyValue = document.getElementById("public-key").value;
+
+      privateAndPublicKey_Copy(publicKey, publicKeyValue)
+    }
+
+    function privateAndPublicKey_Copy(key, keyValue){
+      if (keyValue === "") {
+        alert("Please select an algorithm type and key size.");
+        return false;
+      }
+      key.select();
+      navigator.clipboard.writeText(key.value);
+      //alert("Copied text: " + copyText.value)
+    }
+
+    $(document).ready(function () {
+      $('#private-key').on('change keyup keydown paste cut input click ready load drop resize scroll unload', function () {
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
+      });
+
+      $('#public-key').on('change keyup keydown paste cut input click ready load drop resize scroll unload', function () {
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
+      });
+    });
+  </script>
+</div>
+<div th:id="footer-div">
+  <footer th:insert="~{fragments/footer.html :: footer}"></footer>
+</div>

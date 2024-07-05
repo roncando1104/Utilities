@@ -32,7 +32,7 @@
     </div>
     <div th:id="form-btn-div">
       <form method="get" th:action="@{'/get-certificate-content/view-keystore/' + ${file}}">
-        Enter keystore password: <input type="text" id="password" name="password" placeholder="enter password">
+        Enter keystore password: <input type="text" id="password" name="password" placeholder="Enter password">
         <button class="btn btn-info" th:id="confirm-btn">View Keystore</button>
         <button class="btn btn-warning" th:id="cancel-btn" th:formaction="@{/cancel}">Cancel</button>
       </form>
