@@ -47,8 +47,8 @@ public class JwtServiceImpl implements JwtService {
 
     try {
       privateKey = certJsonBean.getPrivateKey();
-      payload = certJsonBean.jwtPayload;
-      header = certJsonBean.jwtHeader;
+      payload = certJsonBean.getJwtPayload();
+      header = certJsonBean.getJwtHeader();
 
       JSONObject jsonObject = new JSONObject(header);
       String algorithm = jsonObject.getString("alg");
@@ -56,9 +56,9 @@ public class JwtServiceImpl implements JwtService {
       // get the private key from encoded key.
       PrivateKey pvtKey = getPrivateKey(privateKey);
 
-      if (!certJsonBean.privateKey.isEmpty()) {
+      if (!certJsonBean.getPrivateKey().isEmpty()) {
         token = Jwts.builder().setClaims(payload).setHeader(header)
-            .signWith(pvtKey, SignatureAlgorithm.forName(algorithm)).compact();
+            .signWith(pvtKey, SignatureAlgorithm.valueOf(algorithm)).compact();
       } else {
         token = "Something went wrong!!";
       }

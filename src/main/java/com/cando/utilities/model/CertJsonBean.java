@@ -12,9 +12,9 @@ import java.util.Map;
 
 public class CertJsonBean {
 
-  public String privateKey;
-  public Map<String, Object> jwtPayload;
-  public Map<String, Object> jwtHeader;
+  private String privateKey;
+  private Map<String, Object> jwtPayload;
+  private Map<String, Object> jwtHeader;
 
   public String getPrivateKey() {
     return privateKey;
@@ -42,7 +42,7 @@ public class CertJsonBean {
   @Override
   public String toString() {
     return "CertJsonBean{" +
-        "privatekey='" + privateKey + '\'' +
+        "privateKey='" + privateKey + '\'' +
         ", payload=" + jwtPayload +
         ", header=" + jwtHeader +
         '}';
